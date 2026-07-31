@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Smart Injury Checker | Dual Mode Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <header class="hero">
+            <div class="hero-content">
+                <div class="logo">
+                    <i class="fas fa-heartbeat logo-icon"></i>
+                </div>
+                <h1>Smart Injury Checker</h1>
+                <p>Advanced Dual-Mode Assessment System</p>
+                <div class="badges">
+                    <span class="badge"><i class="fas fa-robot"></i> AI Assisted</span>
+                    <span class="badge"><i class="fas fa-user-md"></i> Clinical Guidelines</span>
+                    <span class="badge"><i class="fas fa-bolt"></i> Instant Analysis</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Module 1: Symptom Checker -->
+            <section class="module card" id="symptom-module">
+                <div class="module-header">
+                    <h2><i class="fas fa-comment-medical"></i> Symptom Analysis</h2>
+                    <p>Answer a few questions to get an instant risk assessment.</p>
+                </div>
+                
+                <div class="chat-container" id="chat-box">
+                    <!-- Chat messages will be injected here -->
+                </div>
+
+                <div class="chat-input-area" id="input-area">
+                    <!-- Dynamic inputs (buttons/sliders) injected here -->
+                </div>
+                
+                <button class="btn btn-outline" id="reset-symptom-btn" style="display:none; margin-top: 15px; width: 100%;">
+                    <i class="fas fa-redo"></i> Restart Assessment
+                </button>
+            </section>
+
+            <!-- Module 2: Image Analysis -->
+            <section class="module card" id="image-module">
+                <div class="module-header">
+                    <h2><i class="fas fa-camera"></i> Visual Inspection</h2>
+                    <p>Upload a photo of the injured area for AI visual analysis.</p>
+                </div>
+
+                <div class="upload-container" id="upload-zone">
+                    <input type="file" id="image-upload" accept="image/*" hidden>
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Drag & drop or click to upload</h3>
+                        <p>Supports JPG, PNG (Max 5MB)</p>
+                    </div>
+                    <img id="image-preview" class="image-preview hidden" alt="Image Preview">
+                </div>
+                
+                <div class="image-actions">
+                    <button class="btn btn-primary" id="analyze-img-btn" disabled>
+                        <i class="fas fa-search-plus"></i> Analyze Image
+                    </button>
+                    <button class="btn btn-outline hidden" id="reset-img-btn">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+
+                <div class="result-card hidden" id="image-result">
+                    <div class="loading-overlay hidden" id="image-loading">
+                        <div class="spinner"></div>
+                        <p>Analyzing pixels...</p>
+                    </div>
+                    <div class="result-content" id="image-result-content">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Future Scope Section -->
+        <!-- <section class="future-scope card">
+            <h2><i class="fas fa-rocket"></i> Future Enhancements</h2>
+            <div class="scope-grid">
+                <div class="scope-item">
+                    <i class="fas fa-brain"></i>
+                    <h4>Deep Learning</h4>
+                    <p>Integration of CNNs (ResNet/YOLO) for highly accurate X-ray and tissue damage detection.</p>
+                </div>
+                <div class="scope-item">
+                    <i class="fas fa-hospital-user"></i>
+                    <h4>Telemedicine</h4>
+                    <p>Direct video consultation links based on severity scores.</p>
+                </div>
+                <div class="scope-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Geo-Routing</h4>
+                    <p>Automatic detection and routing to the nearest ER or urgent care.</p>
+                </div>
+            </div>
+        </section> -->
+
+        <footer>
+            <p>&copy; 2026 Smart Injury Checker. For demonstrative purposes only.</p>
+            <p class="disclaimer"><strong>Disclaimer:</strong> This tool is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+        </footer>
+    </div>
+
+    <!-- Main Script -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
