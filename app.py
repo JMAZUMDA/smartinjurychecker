@@ -86,8 +86,9 @@ def predict_image():
         Return a raw JSON object (without markdown code blocks) with exactly these 3 keys:
         1. "result": (String, a detailed description of what you observe)
         2. "confidence": (Integer, a percentage from 0 to 100 of how confident you are in this visual assessment)
-        3. "recommendation": (String, next steps and formatted advice)
+        3. "recommendation": (String, next steps and clear actionable advice formatted in HTML. Use <ul> and <li> for bullet points. For each point, bold the main action using <mark><strong> tags (e.g. <li><mark><strong>Clean the Wound:</strong></mark> Gently wash...). If you suggest any medical advice or warning, use <strong> tags for key terms.)
         """
+
         
         response = model.generate_content([prompt, img])
         ai_response_text = response.text.replace('```json', '').replace('```', '').strip()
