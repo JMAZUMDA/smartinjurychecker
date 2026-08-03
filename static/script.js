@@ -194,6 +194,54 @@ function handleAnswer(val) {
     }, 500);
 }
 
+// Helper function to format text/markdown into clean HTML bullet points
+function formatAdvice(text) {
+    if (!text) return '';
+
+    let formatted = text;
+
+    // Convert markdown bold **text** to <strong>text</strong>
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // If it already contains HTML <ul> or <ol> list structure, return formatted HTML
+    if (/<ul|<ol/i.test(formatted)) {
+        return formatted;
+    }
+
+    // Insert newlines before numbered steps (e.g., " 1. ", " 2. ") or bullets (" * ", " - ")
+    formatted = formatted.replace(/(\s)(\d+\.\s+|\*\s+|-\s+)/g, '\n$2');
+
+    const lines = formatted.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    let html = '';
+    let inList = false;
+
+    lines.forEach(line => {
+        const isNumbered = /^\d+\.\s+(.*)/.exec(line);
+        const isBullet = /^[\*\-]\s+(.*)/.exec(line);
+
+        if (isNumbered || isBullet) {
+            const content = isNumbered ? isNumbered[1] : isBullet[1];
+            if (!inList) {
+                html += '<ul>';
+                inList = true;
+            }
+            html += `<li>${content}</li>`;
+        } else {
+            if (inList) {
+                html += '</ul>';
+                inList = false;
+            }
+            html += `<p style="margin-bottom: 0.5rem;">${line}</p>`;
+        }
+    });
+
+    if (inList) {
+        html += '</ul>';
+    }
+
+    return html;
+}
+
 async function submitSymptoms() {
     addMessage("Analyzing your symptoms...", 'bot');
     
@@ -217,7 +265,7 @@ async function submitSymptoms() {
             <span class="${riskClass}">Risk Level: ${data.risk_score}</span><br>
             Likely Injury: ${data.likely_injury}<br><br>
             <strong>First Aid Advice:</strong><br>
-            ${data.first_aid_advice}
+            ${formatAdvice(data.first_aid_advice)}
         `;
         
         if (data.visit_doctor_urgently) {
@@ -364,7 +412,8 @@ analyzeImgBtn.addEventListener('click', async () => {
             <p><strong>Detected:</strong> ${data.result}</p>
             <p><strong>Confidence:</strong> ${data.confidence}%</p>
             <div class="advice-box">
-                <i class="fas fa-info-circle"></i> ${data.recommendation}
+                <i class="fas fa-info-circle"></i> <strong>Recommendation & Next Steps:</strong>
+                <div class="advice-text">${formatAdvice(data.recommendation)}</div>
             </div>
         `;
         
