@@ -398,11 +398,31 @@ input[type="range"] {
 
 .advice-box {
     background: var(--surface);
-    padding: 1rem;
+    padding: 1.25rem;
     border-left: 4px solid var(--primary);
-    border-radius: 4px;
+    border-radius: var(--radius);
     margin-top: 1rem;
     font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.advice-text {
+    margin-top: 0.75rem;
+}
+
+.advice-box ul, .chat-container ul {
+    margin: 0.5rem 0 0.75rem 1.25rem;
+    padding-left: 0.5rem;
+}
+
+.advice-box li, .chat-container li {
+    margin-bottom: 0.5rem;
+    list-style-type: disc;
+    line-height: 1.5;
+}
+
+.advice-box p, .chat-container p {
+    margin-bottom: 0.5rem;
 }
 
 .loading-overlay {
